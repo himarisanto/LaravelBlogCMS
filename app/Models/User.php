@@ -4,6 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Ui\UiServiceProvider;
+use App\Models\Post;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -21,7 +24,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public  function is_admin()
+    {
+        return $this->role === 'admin';
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -40,9 +53,17 @@ class User extends Authenticatable
      */
     protected function casts(): array
     {
-        return [
+        return [    
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
+    // public static function routes(array $options = [])
+    // {
+    //     if (! static::$app->providerIsLoaded(UiServiceProvider::class)) {
+    //         throw new RuntimeException('In order to use the Auth::routes() method, please install the laravel/ui package.');
+    //     }
+
+    //     static::$app->make('router')->auth($options);
+    // }
 }
