@@ -4,7 +4,7 @@
 <div class="container py-4">
     <h1>Edit Category</h1>
 
-    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
+    <form action="{{ route('is_admin.categories.update', $category->id) }}" method="POST">
         @csrf
         @method('PUT')
 

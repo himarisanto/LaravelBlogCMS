@@ -4,7 +4,7 @@
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1>Categories</h1>
-        <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">+ Add Category</a>
+        <a href="{{ route('is_admin.categories.create') }}" class="btn btn-primary">+ Add Category</a>
     </div>
 
     @if($categories->count())
@@ -26,8 +26,8 @@
                         <td>{{ $c->slug }}</td>
                         <td>{{ $c->description }}</td>
                         <td>
-                            <a href="{{ route('admin.categories.edit', $c->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                            <form action="{{ route('admin.categories.destroy', $c->id) }}" class="d-inline" method="POST">
+                            <a href="{{ route('is_admin.categories.edit', $c->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <form action="{{ route('is_admin.categories.delete', $c->id) }}" class="d-inline" method="POST">
                                 @csrf @method('DELETE')
                                 <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this category?')">
                                     Delete

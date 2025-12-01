@@ -15,9 +15,14 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() || auth()->user()->isAdmin()) {
-            abort(403);
-    }
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
+        if (!auth()->user()->is_admin()) {
+            abort(403, 'Unauthorized');
+        }
+
         return $next($request);
     }
 }

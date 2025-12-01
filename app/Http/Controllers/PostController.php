@@ -36,6 +36,19 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
     }
 
+    public function uploadImage(Request $request)
+    {
+        if (!$request->hasFile('file')) {
+            return response()->json(['error' => 'No file uploaded'], 400);
+        }
+
+        $file = $request->file('file');
+        $path = $file->store('uploads/posts', 'public');
+
+        return response()->json([
+            'location' => asset('storage/' . $path)
+        ]);
+    }
 
     public function show($slug)
     {

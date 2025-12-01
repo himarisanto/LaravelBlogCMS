@@ -49,7 +49,7 @@ class CategoryController extends Controller
             'description' => 'nullable']);
             $data['slug'] = Str::slug($data['name']);
             Category::create($data);
-            return redirect()->route('admin.categories.index')
+            return redirect()->route('is_admin.categories.index')
             ->with('success', 'Category created');
     }
 

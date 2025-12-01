@@ -1,4 +1,6 @@
-    <div class="row">
+@extends('layouts.app')
+
+@section('content')<div class="row">
     <div class="col-md-8">
         <h1>{{ $post->title }}</h1>
         <p><small>By {{ $post->author->name }} | {{ $post->published_at->format('M d, Y') }}</small></p>

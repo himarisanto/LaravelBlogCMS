@@ -27,6 +27,9 @@ Route::get('/app', fn() => view('layouts.app'))
 //     ->middleware('auth')
 //     ->name('app');
 
+Route::post('/uploads/images', [PostController::class, 'uploadImage'])
+    ->middleware('auth')
+    ->name('uploads.images');
 
 
 
@@ -45,13 +48,13 @@ Route::middleware(['auth', 'role:user,admin'])->group(function () {
     Route::resource('comments', CommentController::class)->only(['store', 'destroy']);
 
     Route::get('/categories/{slug}', [CategoryController::class, 'show'])->name('categories.show');
-    Route::get('/categories', [CategoryController::class, 'listForUser'])->name('categories.user.index');
+    Route::get('/categories', [CategoryController::class, 'indexAdmin'])->name('categories.user.index');
 });
 
 
 
-Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
-
+Route::middleware(['role:admin'])->prefix('is_admin')->name('is_admin.')->group(function () {
+// Route::middleware(['is_admin'])->group( function () {
     Route::get('/categories', [CategoryController::class, 'indexAdmin'])->name('categories.index');
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
     Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
